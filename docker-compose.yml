@@ -1,24 +1,23 @@
 version: '3.8'
 services:
-  db:
-    build: ./database
+  app:
+    build: .
+    environment:
+      - SLACK_API_TOKEN=${SLACK_API_TOKEN}
+      - SLACK_CHANNEL_IDS=${SLACK_CHANNEL_IDS}
+      - PG_DB=${PG_DB}
+      - PG_USER=${PG_USER}
+      - PG_PW=${PG_PW}
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
     environment:
       POSTGRES_DB: ${PG_DB}
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PW}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-  automation:
-    build: ./automation
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgres://${PG_USER}:${PG_PW}@db:5432/${PG_DB}
-    ports:
-      - "3000:3000"
-      
-volumes:
-  db_data:

@@ -1,8 +1,8 @@
 FROM postgres:latest
 
-ENV POSTGRES_DB=bge_slack
-ENV POSTGRES_USER=jordy
-ENV_POSTGRES_PASSWORD=pw123
+ENV PG_DB=bge_slack
+ENV PG_USER=jordy
+ENV PG_PW=pw123
 
 EXPOSE 5432
 

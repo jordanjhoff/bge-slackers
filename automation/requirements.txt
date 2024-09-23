@@ -1,2 +1,4 @@
 psycopg==2.9.3
 requests==2.26.0
+slack_sdk==3.16.1
+psycopg2-binary==2.9.5 
