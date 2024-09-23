@@ -3,9 +3,9 @@ services:
   db:
     build: ./database
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PW}
     ports:
       - "5432:5432"
     volumes:
@@ -16,9 +16,9 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydatabase
+      DATABASE_URL: postgres://${PG_USER}:${PG_PW}@db:5432/${PG_DB}
     ports:
-      - "3000:3000"  # Replace this with the port your automation app uses
-
+      - "3000:3000"
+      
 volumes:
   db_data:
